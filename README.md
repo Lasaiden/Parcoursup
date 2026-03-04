@@ -17,7 +17,7 @@ L'objectif principal de cette base de données est de récupérer et d'analyser 
 
 ## ⛔ Contraintes d'intégrité
 
-Pour la partie sur les contraintes d'intégrité, on a d'abord les contraintes statiques qui s'appliquent en permanence à notre base. Par exemple, il est impératif que le code UAI de l'établissement et le code d'affectation de la formation soient toujours renseignés pour identifier chaque ligne de manière unique. On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. De la même manière, les champs de pourcentages doivent obligatoirement être compris entre 0 et 100, et le total des admis ne peut pas dépasser la capacité finale de l'établissement. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
+Pour la partie sur les contraintes d'intégrité, on a d'abord les contraintes statiques qui s'appliquent en permanence à notre base. Par exemple, il est impératif que la session, le code UAI de l'établissement et le code d'affectation de la formation soient toujours renseignés pour identifier chaque ligne de manière unique. On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. De la même manière, les champs de pourcentages doivent obligatoirement être compris entre 0 et 100, et le total des admis ne peut pas dépasser la capacité finale de l'établissement. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
 
 ## 🤔 Exemples de redondances et d'anomalies existantes dans le schéma
 
@@ -168,7 +168,7 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json
 
 Convert specified input file using defaults for output, database, and table. Rename keys and define primary keys.
 ```bash
-python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_olocalisation_des_formations:geolocalisation_des_formations -p cod_uai cod_aff_form
+python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_olocalisation_des_formations:geolocalisation_des_formations -p session cod_uai cod_aff_form
 ```
 
 ## 🎨 Command-Line Arguments

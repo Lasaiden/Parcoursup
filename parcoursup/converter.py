@@ -126,4 +126,5 @@ def convert_json_to_mysql(
 		for row in flattened_obj:
 			insert_statement = create_insert_statement(table_name, valid_keys, row)
 			file.write(insert_statement)
+		file.write(f"OPTIMIZE TABLE {table_name};\n")
 		file.write("COMMIT;")

@@ -38,13 +38,19 @@ parcoursup (<u>**session**</u>, <u>**cod_uai**</u>, <u>**cod_aff_form**</u>, con
 - **Dépendances fonctionnelles (DF) :**
 	- Si l'attribut `cod_uai` est identique pour deux tuples, alors les attributs de localisation (`dep`, `dep_lib`, `region_etab_aff`, `academies`, `ville_etab`) doivent être strictement identiques.
 - **Capacité d'accueil :**
-	- Si l'attribut `acc_tot` (nombre total des candidats admis) est renseigné, alors il doit être inférieur ou égal à l'attribut `capa_fin` (capacité de l'établissement par formation).
+	- Si l'attribut `acc_tot` (nombre total des candidats admis) est renseigné, alors il doit être inférieur ou égal à l'attribut `capa_fin` (capacité d'accueil de l'établissement par formation finale).
 
 	_Note : ~12 % des entrées (6 860 lignes) présentent `acc_tot` > `capa_fin`. Cette violation de la contrainte reflète une réalité opérationnelle (ajustements tardifs des capacités d'accueil ou sur-inscriptions autorisées) et non une erreur de saisie système._
 
+**Contraintes Dynamiques (mise à jour)**
+- **Règle de non-régression :**
+	- Si le processus d'admission avance, la valeur de l'attribut `acc_tot` lors d'une mise à jour (`UPDATE`) doit être strictement supérieure ou égale à l'ancienne valeur. Les acceptations définitivement confirmées ne peuvent pas être effacées du système.
+- **Ouverture de phase complémentaire :**
+	- L'ajout de candidatures en phase complémentaire ne peut se déclencher pour les vœux insérés dans la phase complémentaire active (`nb_voe_pc` > 0) que si le nombre d'admis en phase principale (`acc_pp`) est resté strictement inférieur à la capacité d'accueil de l'établissement par formation finale (`capa_fin`).
+
 _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) sont au format CSV/JSON, elles manquent de contraintes ; donc seules les contraintes statiques explicites ont été ajoutées automatiquement à cette phase._
 
-On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
+On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis.
 
 ## 🤔 Exemples de redondances et d'anomalies existantes dans le schéma
 

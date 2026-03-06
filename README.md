@@ -21,7 +21,18 @@ parcoursup (<u>**session**</u>, <u>**cod_uai**</u>, <u>**cod_aff_form**</u>, con
 
 ## ⛔ Contraintes d'intégrité
 
-Pour la partie sur les contraintes d'intégrité, on a d'abord les contraintes statiques qui s'appliquent en permanence à notre base. Par exemple, il est impératif que la session, le code UAI de l'établissement et le code d'affectation de la formation soient toujours renseignés pour identifier chaque ligne de manière unique. On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. De la même manière, les champs de pourcentages doivent obligatoirement être compris entre 0 et 100, et le total des admis ne peut pas dépasser la capacité finale de l'établissement. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
+**Contraintes Statiques Explicites (exprimées dans le schéma du modèle)**
+- **Clé primaire (Unicité) :**
+	- Le triplet (`session`, `cod_uai`, `cod_aff_form`) doit être strictement unique.
+- **Valeurs non nulles (Existence) :**
+	- Les clés primaires et les attributs d'identification structurelle ne peuvent pas être `NULL`.
+
+	_Note : `dep`, `dep_lib`, `region_etab_aff`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `nb_voe_pp_internat`, `nb_cla_pp_internat`, `nb_cla_pp_pasinternat`, `acc_internat`, `acc_term`, `acc_term_f`, `pct_etab_orig`, `lib_grp1`, `ran_grp1`, `lib_grp2`, `ran_grp2`, `lib_grp3`, `ran_grp3`, `detail_forma2`, `lien_form_psup`, `taux_acces_ens`, `part_acces_gen`, `part_acces_tec`, `part_acces_pro`, `etablissement_id_paysage`, `composante_id_paysage` peuvent être nuls._
+- **Contraintes de domaine (CHECK) :**
+    - Si un attribut représente un pourcentage (`pct_*`), alors sa valeur est comprise entre 0 et 100.
+    - Si un attribut représente un effectif (`nb_*`, `prop_*`, `acc_*`), alors sa valeur est supérieure ou égale à 0.
+
+On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. De la même manière, le total des admis ne peut pas dépasser la capacité finale de l'établissement. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
 
 ## 🤔 Exemples de redondances et d'anomalies existantes dans le schéma
 

@@ -204,18 +204,19 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json fr-esr-parcoursup_2024.json f
 
 ## 🎨 Command-Line Arguments
 
-| Argument                      | Description                                       |
-|-------------------------------|---------------------------------------------------|
-| `-i, --input <path>`          | Path(s) to the input `.json` file(s).             |
-| `-o, --output <path>`         | Path to the output `.sql` file.                   |
-| `-d, --database <name>`       | Name of the MySQL database.                       |
-| `-t, --table <name>`          | Name of the MySQL table.                          |
-| `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key.                     |
-| `-p, --primary <key>`         | Primary keys.                                     |
-| `-n, --not-null`              | Set keys with non-null values as NOT NULL.        |
-| `-P, --percentages`           | Checks for percentages (0 to 100).                |
-| `-C, --counts`                | Checks for counts (>= 0).                         |
-| `-s, --split`                 | Split insert requests into multiple `.sql` files. |
+| Argument                      | Description                                                              |
+|-------------------------------|--------------------------------------------------------------------------|
+| `-i, --input <path>`          | Path(s) to the input `.json` file(s).                                    |
+| `-o, --output <path>`         | Path to the output `.sql` file.                                          |
+| `-d, --database <name>`       | Name of the MySQL database.                                              |
+| `-t, --table <name>`          | Name of the MySQL table.                                                 |
+| `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key.                                            |
+| `-p, --primary <key>`         | Primary keys.                                                            |
+| `-n, --not-null`              | Set keys with non-null values as NOT NULL.                               |
+| `-P, --percentages`           | Checks for percentages (0 to 100).                                       |
+| `-C, --counts`                | Checks for counts (>= 0).                                                |
+| `-s, --split`                 | Split insert requests into multiple `.sql` files.                        |
+| `--print`                     | Print non-null percentages or counts instead of producing a `.sql` file. |
 
 ## 🐛 Bugs
 

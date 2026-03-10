@@ -17,6 +17,7 @@ def run(config: Config) -> None:
 		config.percentages,
 		config.counts,
 		config.split,
+		config.print_mode,
 	)
 
 
@@ -83,6 +84,11 @@ def main() -> None:
 		type=int,
 		default=15000,
 		help="Split insert requests into multiple `.sql` files. Default: `15000`.",
+	)
+	arg_parser.add_argument(
+		"--print",
+		action="store_true",
+		help="Print non-null percentages or counts instead of producing a `.sql` file.",
 	)
 	args = arg_parser.parse_args()
 	config = Config(args)

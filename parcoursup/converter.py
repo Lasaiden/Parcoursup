@@ -116,6 +116,7 @@ def convert_json_to_mysql(
 	percentages: bool,
 	counts: bool,
 	split: int,
+	print_mode: bool,
 ):
 	obj = []
 	for json_file_path in json_file_paths:
@@ -135,6 +136,9 @@ def convert_json_to_mysql(
 				keys.append(key)
 	valid_keys = []
 	column_definitions = []
+	non_null_keys = []
+	percentage_keys = []
+	count_keys = []
 	for key in keys:
 		column_values = [row.get(key) for row in flattened_obj]
 		mysql_type = determine_mysql_type(column_values)
@@ -144,6 +148,8 @@ def convert_json_to_mysql(
 			valid_keys.append(key)
 			valid_values = [value for value in column_values if value is not None]
 			has_null = len(valid_values) < len(column_values)
+			if not has_null:
+				non_null_keys.append(key)
 			column_definition = f"\t{key} {mysql_type}"
 			if not_null and not has_null:
 				column_definition += " NOT NULL"
@@ -159,10 +165,17 @@ def convert_json_to_mysql(
 				minimum_value = min(valid_values)
 				maximum_value = max(valid_values)
 				if percentages and minimum_value >= 0 and maximum_value <= 100:
+					percentage_keys.append(key)
 					column_definition += f" CHECK ({key} >= 0 AND {key} <= 100)"
 				elif counts and is_integer and minimum_value >= 0:
+					count_keys.append(key)
 					column_definition += f" CHECK ({key} >= 0)"
 			column_definitions.append(column_definition)
+	if print_mode:
+		print(f"Non-null: {', '.join(non_null_keys)}\n")
+		print(f"Percentages: {', '.join(percentage_keys)}\n")
+		print(f"Counts: {', '.join(count_keys)}\n")
+		return
 	file_index = 1
 	insert_count = 0
 	file = open(mysql_file_path, "w", encoding="utf-8")
@@ -172,7 +185,7 @@ def convert_json_to_mysql(
 	file.write(f"CREATE TABLE IF NOT EXISTS {table_name} (\n")
 	file.write(",\n".join(column_definitions))
 	if primary_keys:
-		file.write(f",\n\tPRIMARY KEY ({", ".join(primary_keys)})")
+		file.write(f",\n\tPRIMARY KEY ({', '.join(primary_keys)})")
 	file.write("\n);\n")
 	for row in flattened_obj:
 		if split > 0 and insert_count >= split:

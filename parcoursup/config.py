@@ -18,3 +18,4 @@ class Config:
 		self.percentages: bool = args.percentages
 		self.counts: bool = args.counts
 		self.split: int = args.split
+		self.print_mode: bool = args.print

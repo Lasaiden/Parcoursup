@@ -77,9 +77,59 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `cod_uai` $\to$ `contrat_etab`, `g_ea_lib_vx`, `dep`, `ville_etab`, `etablissement_id_paysage`
 
-`cod_aff_form` $\to$ `cod_uai`, `lib_for_voe_ins`, `select_form`, `fili`, `lib_comp_voe_ins`, `form_lib_voe_acc`, `fil_lib_voe_acc`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `detail_forma2`, `list_com`, `tri`, `lien_form_psup`, `composante_id_paysage`
+`cod_aff_form` $\to$ `cod_uai`, `lib_comp_voe_ins`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `detail_forma2`, `list_com`, `tri`, `lien_form_psup`, `composante_id_paysage`
 
-`session`, `cod_aff_form` $\to$ `capa_fin`, `voe_tot`, `voe_tot_f`, `nb_voe_pp`, `nb_voe_pp_internat`, `nb_voe_pp_bg`, `nb_voe_pp_bg_brs`, `nb_voe_pp_bt, nb_voe_pp_bt_brs`, `nb_voe_pp_bp`, `nb_voe_pp_bp_brs`, `nb_voe_pp_at`, `nb_voe_pc`, `nb_voe_pc_bg`, `nb_voe_pc_bt`, `nb_voe_pc_bp`, `nb_voe_pc_at`, `nb_cla_pp`, `nb_cla_pc`, `nb_cla_pp_internat`, `nb_cla_pp_pasinternat`, `nb_cla_pp_bg`, `nb_cla_pp_bg_brs`, `nb_cla_pp_bt`, `nb_cla_pp_bt_brs`, `nb_cla_pp_bp`, `nb_cla_pp_bp_brs`, `nb_cla_pp_at`, `prop_tot`, `acc_tot`, `acc_tot_f`, `acc_pp`, `acc_pc`, `acc_debutpp`, `acc_datebac`, `acc_finpp`, `acc_internat`, `acc_brs`, `acc_neobac`, `acc_bg`, `acc_bt`, `acc_bp`, `acc_at`, `acc_mention_nonrenseignee`, `acc_sansmention`, `acc_ab`, `acc_b`, `acc_tb`, `acc_tbf`, `acc_bg_mention`, `acc_bt_mention`, `acc_bp_mention`, `acc_term`, `acc_term_f`, `acc_aca_orig`, `acc_aca_orig_idf`, `pct_acc_debutpp`, `pct_acc_datebac`, `pct_acc_finpp`, `pct_f`, `pct_aca_orig`, `pct_aca_orig_idf`, `pct_etab_orig`, `pct_bours`, `pct_neobac`, `pct_mention_nonrenseignee`, `pct_sansmention`, `pct_ab`, `pct_b`, `pct_tb`, `pct_tbf`, `pct_bg`, `pct_bg_mention`, `pct_bt`, `pct_bt_mention`, `pct_bp`, `pct_bp_mention`, `prop_tot_bg`, `prop_tot_bg_brs`, `prop_tot_bt`, `prop_tot_bt_brs`, `prop_tot_bp`, `prop_tot_bp_brs`, `prop_tot_at`, `lib_grp1`, `ran_grp1`, `lib_grp2`, `ran_grp2`, `lib_grp3`, `ran_grp3`, `taux_acces_ens`, `part_acces_gen`, `part_acces_tec`, `part_acces_pro`
+`lib_comp_voe_ins` $\to$ `lib_for_voe_ins`, `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
+
+`acc_tot`, `acc_debutpp` $\to$ `pct_acc_debutpp`
+
+`acc_tot`, `acc_datebac` $\to$ `pct_acc_datebac`
+
+`acc_tot`, `acc_finpp` $\to$ `pct_acc_finpp`
+
+`acc_tot`, `acc_tot_f` $\to$ `pct_f`
+
+`acc_tot`, `acc_aca_orig` $\to$ `pct_aca_orig`
+
+`acc_tot`, `acc_aca_orig_idf` $\to$ `pct_aca_orig_idf`
+
+`acc_tot`, `acc_term` $\to$ `pct_etab_orig`
+
+`acc_tot`, `acc_brs` $\to$ `pct_bours`
+
+`acc_tot`, `acc_neobac` $\to$ `pct_neobac`
+
+`acc_tot`, `acc_mention_nonrenseignee` $\to$ `pct_mention_nonrenseignee`
+
+`acc_tot`, `acc_sansmention` $\to$ `pct_sansmention`
+
+`acc_tot`, `acc_ab` $\to$ `pct_ab`
+
+`acc_tot`, `acc_b` $\to$ `pct_b`
+
+`acc_tot`, `acc_tb` $\to$ `pct_tb`
+
+`acc_tot`, `acc_tbf` $\to$ `pct_tbf`
+
+`acc_tot`, `acc_bg` $\to$ `pct_bg`
+
+`acc_tot`, `acc_bg_mention` $\to$ `pct_bg_mention`
+
+`acc_tot`, `acc_bt` $\to$ `pct_bt`
+
+`acc_tot`, `acc_bt_mention` $\to$ `pct_bt_mention`
+
+`acc_tot`, `acc_bp` $\to$ `pct_bp`
+
+`acc_tot`, `acc_bp_mention` $\to$ `pct_bp_mention`
+
+`session`, `cod_aff_form`, `lib_grp1` $\to$ `ran_grp1`
+
+`session`, `cod_aff_form`, `lib_grp2` $\to$ `ran_grp2`
+
+`session`, `cod_aff_form`, `lib_grp3` $\to$ `ran_grp3`
+
+`session`, `cod_aff_form` $\to$ `capa_fin`, `voe_tot`, `voe_tot_f`, `nb_voe_pp`, `nb_voe_pp_internat`, `nb_voe_pp_bg`, `nb_voe_pp_bg_brs`, `nb_voe_pp_bt, nb_voe_pp_bt_brs`, `nb_voe_pp_bp`, `nb_voe_pp_bp_brs`, `nb_voe_pp_at`, `nb_voe_pc`, `nb_voe_pc_bg`, `nb_voe_pc_bt`, `nb_voe_pc_bp`, `nb_voe_pc_at`, `nb_cla_pp`, `nb_cla_pc`, `nb_cla_pp_internat`, `nb_cla_pp_pasinternat`, `nb_cla_pp_bg`, `nb_cla_pp_bg_brs`, `nb_cla_pp_bt`, `nb_cla_pp_bt_brs`, `nb_cla_pp_bp`, `nb_cla_pp_bp_brs`, `nb_cla_pp_at`, `prop_tot`, `acc_tot`, `acc_tot_f`, `acc_pp`, `acc_pc`, `acc_debutpp`, `acc_datebac`, `acc_finpp`, `acc_internat`, `acc_brs`, `acc_neobac`, `acc_bg`, `acc_bt`, `acc_bp`, `acc_at`, `acc_mention_nonrenseignee`, `acc_sansmention`, `acc_ab`, `acc_b`, `acc_tb`, `acc_tbf`, `acc_bg_mention`, `acc_bt_mention`, `acc_bp_mention`, `acc_term`, `acc_term_f`, `acc_aca_orig`, `acc_aca_orig_idf`, `prop_tot_bg`, `prop_tot_bg_brs`, `prop_tot_bt`, `prop_tot_bt_brs`, `prop_tot_bp`, `prop_tot_bp_brs`, `prop_tot_at`, `lib_grp1`, `lib_grp2`, `lib_grp3`, `taux_acces_ens`, `part_acces_gen`, `part_acces_tec`, `part_acces_pro`
 
 ## ⚙️ Features
 

@@ -211,7 +211,6 @@ def convert_json_to_mysql(
 	if not json_file_paths:
 		if fds:
 			with open(mysql_file_path, "w", encoding="utf-8") as file:
-				file.write(f"USE {database_name};\n")
 				check_functional_dependencies(file, fds, table_name)
 		return
 	obj = []

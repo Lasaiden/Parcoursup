@@ -54,7 +54,7 @@ On observe que la phase 1 présente une modélisation sous la forme d'une seule 
 - **Capacité d'accueil :**
 	- Si l'attribut `acc_tot` (nombre total des candidats admis) est renseigné, alors il doit être inférieur ou égal à l'attribut `capa_fin` (capacité d'accueil de l'établissement par formation finale).
 
-	_Note : ~12 % des entrées (6 860 lignes) présentent `acc_tot` > `capa_fin`. Cette violation de la contrainte reflète une réalité opérationnelle (ajustements tardifs des capacités d'accueil ou sur-inscriptions autorisées) et non une erreur de saisie système._
+	_Note : ~12,3 % des entrées (6 860 lignes) présentent `acc_tot` > `capa_fin`. Cette violation de la contrainte reflète une réalité opérationnelle (ajustements tardifs des capacités d'accueil ou sur-inscriptions autorisées) et non une erreur de saisie système._
 
 **Contraintes Dynamiques (mise à jour)**
 - **Règle de non-régression :**
@@ -96,6 +96,8 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 `acc_tot`, `acc_tot_f` $\to$ `pct_f`
 
 `composante_id_paysage` $\to$ `dep`, `dep_lib`, `academies`, `etablissement_id_paysage`
+
+`lib_comp_voe_ins` $\to$ `lib_for_voe_ins`
 
 `lien_form_psup` $\to$ `cod_aff_form`
 
@@ -149,19 +151,31 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `acc_tot`, `acc_term` $\to$ `pct_etab_orig`
 
+_Note : Les corrections ont été basées sur les recalculs mathématiques des effectifs totales et des pourcentages._
+
 #### 🔤 Peut être valide après correction des erreurs de grammaire
 
 `dep` $\to$ `dep_lib`, `region_etab_aff`, `academies`
 
-#### 🔄 Peut être valide mais nécessite une réévaluation
+_Note : Les corrections étaient basées sur les articles [Département français](https://fr.wikipedia.org/wiki/Département_français) et [Région française](https://fr.wikipedia.org/wiki/Région_française)._
+
+#### 🔄 Peut être valide mais nécessite les corrections
 
 `cod_aff_form` $\to$ `cod_uai`, `lib_comp_voe_ins`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `detail_forma2`, `list_com`, `tri`, `lien_form_psup`, `composante_id_paysage`
 
+_Note : ~25,4 % des entrées (14 176 lignes) présentent des erreurs car, certaines données ont changé d'année en année. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
+
 `cod_uai` $\to$ `contrat_etab`, `g_ea_lib_vx`, `dep`, `ville_etab`, `etablissement_id_paysage`
+
+_Note : ~0,8 % des entrées (442 lignes) présentent des erreurs car, pour le même code UAI (Unité Administrative Immatriculée), il existe plusieurs formations même si, par définition, il s'agit d'un identifiant unique strictement codifié. Donc, pour la migration, les données les plus récentes et choisies à la majorité seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
 `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat` $\to$ `dep`, `dep_lib`, `region_etab_aff`, `academies`, `ville_etab`
 
-`lib_comp_voe_ins` $\to$ `lib_for_voe_ins`, `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
+_Note : ~3,8 % des entrées (2 134 lignes) présentent des erreurs avant et ~0,4 % (210 lignes) après les corrections mathématiques. Donc, les corrections restantes ont été apportées uniquement aux entrées de la session 2025, car la vérification des données par carte prend énormément de temps._
+
+`lib_comp_voe_ins` $\to$ `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
+
+_Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'existence simultanée de la même formation non sélective et sélective, une formation correcte remplacée par "Autre formation", des troncations mal faites, etc. Donc, pour la migration, les données les plus récentes et choisies à la majorité seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
 ~~`nb_cla_pp_internat`, `nb_cla_pp_pasinternat` $\to$ `nb_cla_pp`~~
 
@@ -304,6 +318,11 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json
 Convert specified input files using defaults for output, database, and table. Rename keys, define primary keys, and set non-null values.
 ```bash
 python -m parcoursup.cli -i fr-esr-parcoursup.json fr-esr-parcoursup_2024.json fr-esr-parcoursup_2023.json fr-esr-parcoursup_2022.json -r acad_mies:academies g_olocalisation_des_formations:geolocalisation_des_formations -p session cod_uai cod_aff_form -n -P -C
+```
+
+Create functional dependency SQL checks from a README file.
+```bash
+python -m parcoursup.cli -f README.md
 ```
 
 ## 🎨 Command-Line Arguments

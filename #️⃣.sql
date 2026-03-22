@@ -2,9 +2,9 @@ USE parcoursup;
 UPDATE
 	parcoursup
 SET
-	acc_tot = acc_bg + acc_bt + acc_bp + acc_at,
+	-- acc_tot = acc_bg + acc_bt + acc_bp + acc_at,
 	-- acc_tot = acc_pp + acc_pc,
-	acc_neobac = acc_sansmention + acc_ab + acc_b + acc_tb + acc_tbf,
+	-- acc_neobac = acc_sansmention + acc_ab + acc_b + acc_tb + acc_tbf,
 	pct_ab = IF(acc_tot = 0, 0, ROUND(100.0 * acc_ab / acc_tot)),
 	pct_aca_orig_idf = IF(
 		acc_tot = 0,

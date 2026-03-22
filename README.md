@@ -81,8 +81,6 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 #### ✅ Valide
 
-`academies` $\to$ `region_etab_aff`
-
 `acc_bg`, `acc_bt`, `acc_bp` $\to$ `acc_neobac`
 
 `acc_tot`, `acc_datebac` $\to$ `pct_acc_datebac`
@@ -113,11 +111,11 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 #### #️⃣ Peut être valide après correction des erreurs de calcul
 
-`acc_bg`, `acc_bt`, `acc_bp`, `acc_at` $\to$ `acc_tot`
+~~`acc_bg`, `acc_bt`, `acc_bp`, `acc_at` $\to$ `acc_tot`~~
 
 ~~`acc_pp`, `acc_pc` $\to$ `acc_tot`~~
 
-`acc_sansmention`, `acc_ab`, `acc_b`, `acc_tb`, `acc_tbf` $\to$ `acc_neobac`
+~~`acc_sansmention`, `acc_ab`, `acc_b`, `acc_tb`, `acc_tbf` $\to$ `acc_neobac`~~
 
 `acc_tot`, `acc_ab` $\to$ `pct_ab`
 
@@ -155,6 +153,8 @@ _Note : Les corrections ont été basées sur les recalculs mathématiques des e
 
 #### 🔤 Peut être valide après correction des erreurs de grammaire
 
+`academies` $\to$ `region_etab_aff`
+
 `dep` $\to$ `dep_lib`, `region_etab_aff`, `academies`
 
 _Note : Les corrections étaient basées sur les articles [Département français](https://fr.wikipedia.org/wiki/Département_français) et [Région française](https://fr.wikipedia.org/wiki/Région_française)._
@@ -169,13 +169,13 @@ _Note : ~25,4 % des entrées (14 176 lignes) présentent des erreurs, car certai
 
 _Note : ~0,8 % des entrées (442 lignes) présentent des erreurs, car pour le même code UAI (Unité Administrative Immatriculée), il existe plusieurs formations même si, par définition, il s'agit d'un identifiant unique strictement codifié. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
-`geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat` $\to$ `dep`, `dep_lib`, `region_etab_aff`, `academies`, `ville_etab`
+~~`geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat` $\to$ `dep`, `dep_lib`, `region_etab_aff`, `academies`, `ville_etab`~~
 
-_Note : ~3,8 % des entrées (2 134 lignes) présentent des erreurs avant et ~0,4 % (210 lignes) après les corrections mathématiques. Donc, les corrections restantes ont été apportées uniquement aux entrées de la session 2025 et le reste va être remplacé par les données les plus récentes, car la vérification des données par carte prend énormément de temps._
+~~_Note : ~3,8 % des entrées (2 134 lignes) présentent des erreurs avant et ~0,4 % (210 lignes) après les corrections mathématiques. Donc, les corrections restantes ont été apportées uniquement aux entrées de la session 2025 et le reste va être remplacé par les données les plus récentes, car la vérification des données par carte prend énormément de temps._~~
 
-`lib_comp_voe_ins` $\to$ `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
+~~`lib_comp_voe_ins` $\to$ `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`~~
 
-_Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'existence simultanée de la même formation non sélective et sélective, une formation correcte remplacée par "Autre formation", des troncations mal faites, etc. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
+~~_Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'existence simultanée de la même formation non sélective et sélective, une formation correcte remplacée par "Autre formation", des troncations mal faites, etc. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._~~
 
 ~~`nb_cla_pp_internat`, `nb_cla_pp_pasinternat` $\to$ `nb_cla_pp`~~
 

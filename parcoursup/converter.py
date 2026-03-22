@@ -132,7 +132,7 @@ def check_functional_dependencies(
 	with open(fds_path, "r", encoding="utf-8") as fds_file:
 		for line in fds_file:
 			line = line.strip().replace("`", "").replace("$", "")
-			if not line:
+			if not line or line.startswith("~") or line.startswith("-"):
 				continue
 			delimiter = None
 			if "→" in line:

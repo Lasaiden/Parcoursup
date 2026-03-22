@@ -147,7 +147,23 @@ SELECT
 FROM
 	parcoursup.parcoursup
 WHERE
-	dep IS NOT NULL;
+	dep IS NOT NULL ON DUPLICATE KEY
+UPDATE
+	dep_lib = COALESCE(
+		VALUES
+			(dep_lib),
+			departement.dep_lib
+	),
+	region_etab_aff = COALESCE(
+		VALUES
+			(region_etab_aff),
+			departement.region_etab_aff
+	),
+	academies = COALESCE(
+		VALUES
+			(academies),
+			departement.academies
+	);
 INSERT INTO
 	etablissement
 SELECT
@@ -158,7 +174,33 @@ SELECT
 	ville_etab,
 	etablissement_id_paysage
 FROM
-	parcoursup.parcoursup;
+	parcoursup.parcoursup ON DUPLICATE KEY
+UPDATE
+	contrat_etab = COALESCE(
+		VALUES
+			(contrat_etab),
+			etablissement.contrat_etab
+	),
+	g_ea_lib_vx = COALESCE(
+		VALUES
+			(g_ea_lib_vx),
+			etablissement.g_ea_lib_vx
+	),
+	dep = COALESCE(
+		VALUES
+			(dep),
+			etablissement.dep
+	),
+	ville_etab = COALESCE(
+		VALUES
+			(ville_etab),
+			etablissement.ville_etab
+	),
+	etablissement_id_paysage = COALESCE(
+		VALUES
+			(etablissement_id_paysage),
+			etablissement.etablissement_id_paysage
+	);
 INSERT INTO
 	formation
 SELECT
@@ -179,7 +221,83 @@ SELECT
 	lien_form_psup,
 	composante_id_paysage
 FROM
-	parcoursup.parcoursup;
+	parcoursup.parcoursup ON DUPLICATE KEY
+UPDATE
+	cod_uai = COALESCE(
+		VALUES
+			(cod_uai),
+			formation.cod_uai
+	),
+	lib_for_voe_ins = COALESCE(
+		VALUES
+			(lib_for_voe_ins),
+			formation.lib_for_voe_ins
+	),
+	select_form = COALESCE(
+		VALUES
+			(select_form),
+			formation.select_form
+	),
+	fili = COALESCE(
+		VALUES
+			(fili),
+			formation.fili
+	),
+	lib_comp_voe_ins = COALESCE(
+		VALUES
+			(lib_comp_voe_ins),
+			formation.lib_comp_voe_ins
+	),
+	form_lib_voe_acc = COALESCE(
+		VALUES
+			(form_lib_voe_acc),
+			formation.form_lib_voe_acc
+	),
+	fil_lib_voe_acc = COALESCE(
+		VALUES
+			(fil_lib_voe_acc),
+			formation.fil_lib_voe_acc
+	),
+	detail_forma = COALESCE(
+		VALUES
+			(detail_forma),
+			formation.detail_forma
+	),
+	geolocalisation_des_formations_lon = COALESCE(
+		VALUES
+			(geolocalisation_des_formations_lon),
+			formation.geolocalisation_des_formations_lon
+	),
+	geolocalisation_des_formations_lat = COALESCE(
+		VALUES
+			(geolocalisation_des_formations_lat),
+			formation.geolocalisation_des_formations_lat
+	),
+	list_com = COALESCE(
+		VALUES
+			(list_com),
+			formation.list_com
+	),
+	tri = COALESCE(
+		VALUES
+			(tri),
+			formation.tri
+	),
+	detail_forma2 = COALESCE(
+		VALUES
+			(detail_forma2),
+			formation.detail_forma2
+	),
+	lien_form_psup = COALESCE(
+		VALUES
+			(lien_form_psup),
+			formation.lien_form_psup
+	),
+	composante_id_paysage = COALESCE(
+		VALUES
+			(composante_id_paysage),
+			formation.composante_id_paysage
+	);
 INSERT INTO
 	statistiques
 SELECT
@@ -281,3 +399,8 @@ SELECT
 	part_acces_pro
 FROM
 	parcoursup.parcoursup;
+OPTIMIZE TABLE departement;
+OPTIMIZE TABLE etablissement;
+OPTIMIZE TABLE formation;
+OPTIMIZE TABLE statistiques;
+COMMIT;
